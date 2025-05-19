@@ -1,0 +1,75 @@
+---
+import { getAllItems, getSiteInfo } from "../../../libs/csv";
+import type { PostType } from "../../../types/PostType";
+import type { CategoryType } from "../../../types/CategoryType";
+import { createSlug } from "../../../libs/global";
+import Category from "../../../components/Category.astro";
+import { categoriesFilePath, postsFilePath } from "../../../libs/constants";
+
+const { content, page } = Astro.params;
+const currentPage = parseInt(page);
+
+// Cargar configuración del sitio (posts por página)
+const { postPerPage } = getSiteInfo();
+
+// Cargar categorías y posts
+const categories = getAllItems<CategoryType>(categoriesFilePath);
+const posts = getAllItems<PostType>(postsFilePath);
+
+// Buscar categoría por slug o por título convertido a slug
+const category = categories.find(
+  (cat) => (createSlug(cat.title) || cat.slug) === content
+);
+
+if (!category) {
+  throw new Error(`Categoría no encontrada para slug: ${content}`);
+}
+
+// Filtrar posts que pertenecen a la categoría
+const filteredPosts = posts.filter((post) => post.category_id === category.id);
+
+// Paginar posts
+const paginatedPosts = filteredPosts.slice(
+  (currentPage - 1) * postPerPage,
+  currentPage * postPerPage
+);
+
+// Calcular total de páginas para la paginación
+const totalPages = Math.ceil(filteredPosts.length / postPerPage);
+
+// Generación de rutas estáticas para Astro
+export async function getStaticPaths() {
+  const { postPerPage } = getSiteInfo();
+
+  const categories = getAllItems<CategoryType>(categoriesFilePath);
+  const posts = getAllItems<PostType>(postsFilePath);
+
+  const paths = [];
+
+  for (const category of categories) {
+    const filteredPosts = posts.filter(
+      (post) => post.category_id === category.id
+    );
+    const totalPages = Math.ceil(filteredPosts.length / postPerPage);
+
+    for (let i = 2; i <= totalPages; i++) {
+      paths.push({
+        params: {
+          content: category.slug,
+          page: i.toString(),
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+---
+
+<Category
+  category={category}
+  posts={paginatedPosts}
+  currentPage={currentPage}
+  totalPages={totalPages}
+  basePath={`/${category.slug}/page`}
+/>

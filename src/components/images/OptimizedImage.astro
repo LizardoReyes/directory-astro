@@ -1,0 +1,42 @@
+---
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  id?: string;
+}
+
+const { src = "default.png", alt = "", class: className = "", id = "" } = Astro.props;
+
+// Cargar imágenes optimizadas como HTML (as: 'picture')
+const images = import.meta.glob(
+  "../../assets/images/*.{jpg,jpeg,png,webp,avif}",
+  {
+    eager: true,
+    query: {
+      w: "200;600",
+      format: "webp;avif",
+      as: "picture",
+    },
+  }
+);
+
+const imagePath = `../../assets/images/${src}`;
+const imageModule = images[imagePath];
+
+if (!imageModule) {
+  throw new Error(`La imagen "${src}" no se encontró en src/assets/images`);
+}
+
+// Aquí está el fix importante
+//@ts-ignore
+const imageHTML = imageModule.default;
+---
+
+<img
+  id={id}
+  src={imageHTML}
+  alt={alt}
+  title={alt}
+  class={className}
+/>

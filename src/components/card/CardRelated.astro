@@ -1,0 +1,49 @@
+---
+import { categoriesFilePath } from "../../libs/constants";
+import { getItemById } from "../../libs/csv";
+import { createSlug } from "../../libs/global";
+import type { PostType } from "../../types/PostType";
+import OptimizedImage from "../images/OptimizedImage.astro";
+
+type PostProps = {
+  post: PostType;
+};
+
+const { post } = Astro.props as PostProps;
+const category = getItemById(categoriesFilePath, post.category_id);
+---
+
+<div class="bg-gray-50 rounded-lg shadow-sm p-5">
+  <h3 class="text-lg font-bold text-blue-700 mb-2">
+    <a
+      href={post.slug || createSlug(post.title)}
+      class="hover:text-blue-600">{post.title}</a
+    >
+  </h3>
+  <p class="text-xs text-gray-500 mb-2">
+    📍 Publicado en <a
+      href={category?.slug || createSlug(category?.title)}
+      class="hover:text-blue-600">{category?.title}</a
+    >
+  </p>
+
+  <a href={post.slug || createSlug(post.title)}>
+    <OptimizedImage
+      src={post.image}
+      alt={post.title}
+      class="rounded-lg mb-4 w-full h-36 object-cover"
+    />
+  </a>
+
+  <p class="text-sm text-gray-700 mb-4">
+    {post.content}
+  </p>
+  <div class="flex justify-center">
+    <a
+      href={post.slug || createSlug(post.title)}
+      class="bg-blue-600 text-white text-sm px-20 py-2 rounded hover:bg-blue-700"
+    >
+      Ver empresa »
+    </a>
+  </div>
+</div>

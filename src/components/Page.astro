@@ -1,0 +1,45 @@
+---
+import OptimizedImage from "../components/images/OptimizedImage.astro";
+import Layout from "../layouts/Layout.astro";
+import { getSiteInfo } from "../libs/csv";
+import { getDateTimeString } from "../libs/global";
+import { type PageType } from "../types/PageType";
+
+type PageProps = {
+  page: PageType;
+};
+
+const { page } = Astro.props as PageProps;
+const { name } = getSiteInfo();
+---
+
+<Layout title={"▷ " + page.title + " - " + name} description={page.content.slice(0,150) + "..."}>
+  <main class="container mx-auto max-w-6xl px-4 py-10">
+    <!-- Contenido central del artículo con fondo blanco -->
+    <div class="bg-white shadow-md rounded-lg p-8">
+      <!-- Título -->
+      <h1 class="text-3xl font-bold text-gray-800 mb-4">
+        {page.title}
+      </h1>
+
+      <!-- Meta información -->
+      <div class="text-sm text-gray-500 mb-6 flex flex-wrap gap-4">
+        <span>📅 Publicado el {getDateTimeString(page.publishedAt)}</span>
+        <span>✍️ Autor: Juan Pérez</span>
+      </div>
+
+      <!-- Imagen destacada -->
+      <OptimizedImage
+        src={page.image}
+        alt={page.title}
+        class="rounded-lg mb-8 h-64 object-cover mx-auto"
+      />
+
+      <!-- Contenido del artículo -->
+      <article
+        class="prose lg:prose-lg max-w-none text-gray-800"
+        set:html={page.content}
+      />
+    </div>
+  </main>
+</Layout>

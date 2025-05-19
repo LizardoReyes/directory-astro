@@ -1,0 +1,47 @@
+---
+import CardHome from "../../components/card/CardHome.astro";
+import Pagination from "../../components/Pagination.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getAllItems, getSiteInfo } from "../../libs/csv";
+import type { PostType } from "../../types/PostType";
+import { postsFilePath } from "../../libs/constants";
+
+const { page } = Astro.params;
+const currentPage = parseInt(page);
+
+const posts = getAllItems<PostType>(postsFilePath);
+
+const { name, description, postPerPage } = getSiteInfo();
+
+const paginatedPosts = posts.slice(
+  (currentPage - 1) * postPerPage,
+  currentPage * postPerPage
+);
+
+const totalPages = Math.ceil(posts.length / postPerPage);
+
+type PathType = { params: { page: string } };
+
+export async function getStaticPaths() {
+  const { postPerPage } = getSiteInfo();
+  const posts = getAllItems<PostType>(postsFilePath);
+  const totalPages = Math.ceil(posts.length / postPerPage);
+
+  const paths: PathType[] = [];
+  for (let i = 2; i <= totalPages; i++) {
+    paths.push({ params: { page: i.toString() } });
+  }
+
+  return paths;
+}
+---
+
+<Layout title={`${name} - Página ${currentPage}`} description={description.slice(0, 150) + "..."}>
+  <main class="container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {paginatedPosts.map((post) => <CardHome post={post} />)}
+    </div>
+
+    <Pagination currentPage={currentPage} totalPages={totalPages} basePath="/page" />
+  </main>
+</Layout>

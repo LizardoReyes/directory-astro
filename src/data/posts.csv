@@ -1,0 +1,17 @@
+id,title,content,image,publishedAt,category_id
+1,Título 1,Contenido del post 1,image1.webp,2025-10-01T00:00:00Z,1
+2,Título 2,Contenido del post 223,image1.webp,2025-10-01T00:00:00Z,2
+3,Título 3,Contenido del post 3,image1.webp,2025-10-01T00:00:00Z,3
+4,Título 4,Contenido del post 4,image1.webp,2025-10-01T00:00:00Z,4
+5,Título 5,Contenido del post 5,image1.webp,2025-10-01T00:00:00Z,5
+6,Título 6,Contenido del post 6,image1.webp,2025-10-01T00:00:00Z,3
+7,Título 7,Contenido del post 7,image1.webp,2025-10-01T00:00:00Z,2
+8,Título 8,Contenido del post 8,image1.webp,2025-10-01T00:00:00Z,4
+9,Título 9,Contenido del post 9,image1.webp,2025-10-01T00:00:00Z,5
+10,Título 10,Contenido del post 10,image1.webp,2025-10-01T00:00:00Z,4
+11,Título 11,Contenido del post 11,image1.webp,2025-10-01T00:00:00Z,3
+12,Título 12,Contenido del post 12,image1.webp,2025-10-01T00:00:00Z,2
+13,Título 13,Contenido del post 13,image1.webp,2025-10-01T00:00:00Z,2
+14,Título 14,Contenido del post 14,image1.webp,2025-10-01T00:00:00Z,2
+15,Título 15,Contenido del post 15,image1.webp,2025-10-01T00:00:00Z,2
+16,Título 16,Contenido del post 16,image1.webp,2025-10-01T00:00:00Z,2

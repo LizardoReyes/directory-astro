@@ -1,0 +1,7 @@
+{
+    "name": "Restaurant Afrodita",
+    "description": "Directorio de restaurantes y bares", 
+    "baseUrl": "https://restaurantafrodita.com",
+    "languaje": "es",
+    "postPerPage": 4
+}

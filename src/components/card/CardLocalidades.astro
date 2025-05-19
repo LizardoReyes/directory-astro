@@ -1,0 +1,37 @@
+---
+import { createSlug } from "../../libs/global";
+import type { CategoryType } from "../../types/CategoryType";
+import OptimizedImage from "../images/OptimizedImage.astro";
+
+type CategoryProps = {
+  category: CategoryType;
+  numberOfPosts: number;
+};
+
+const { category, numberOfPosts } = Astro.props as CategoryProps;
+---
+
+<!-- Localidad -->
+<div
+  class="bg-gray-50 rounded-lg shadow-sm p-5 flex flex-col items-center text-center"
+>
+  <a href={category.slug || createSlug(category.title)}>
+    <OptimizedImage
+      src={category.image}
+      alt={category.title}
+      class="rounded-lg mb-4 w-full h-48 object-cover"
+    />
+  </a>
+
+  <h2 class="text-xl font-semibold text-blue-700 mb-2">
+    <a href={category.slug || createSlug(category.title)}>{category.title}</a>
+  </h2>
+  <p class="text-sm text-gray-600 mb-4">
+    {numberOfPosts} artículo{numberOfPosts > 1 ? "s" : ""}
+  </p>
+  <a
+    href={category.slug || createSlug(category.title)}
+    class="bg-blue-600 text-white text-sm px-20 py-2 rounded hover:bg-blue-700"
+    >Ver artículos »</a
+  >
+</div>

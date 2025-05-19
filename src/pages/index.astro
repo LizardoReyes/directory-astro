@@ -1,11 +1,26 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import CardHome from "../components/card/CardHome.astro";
+import Pagination from "../components/Pagination.astro";
+import Layout from "../layouts/Layout.astro";
+import { postsFilePath } from "../libs/constants";
+import { getAllItems, getSiteInfo } from "../libs/csv";
+import type { PostType } from "../types/PostType";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = getAllItems<PostType>(postsFilePath);
+
+const { name, description, postPerPage } = getSiteInfo();
+
+const currentPage = 1;
+const paginatedPosts = posts.slice(0, postPerPage);
+const totalPages = Math.ceil(posts.length / postPerPage);
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={name + " - " + description} description={description}>
+  <main class="container mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {paginatedPosts.map((post) => <CardHome post={post} />)}
+    </div>
+
+    <Pagination currentPage={currentPage} totalPages={totalPages} basePath="/page" />
+  </main>
 </Layout>

@@ -1,0 +1,67 @@
+---
+const { currentPage, totalPages, basePath = "/page" } = Astro.props;
+
+// Número máximo de botones visibles
+const maxButtons = 5;
+
+// Calcular botones visibles
+let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+let end = Math.min(totalPages, start + maxButtons - 1);
+if (end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
+
+// Generar array de páginas
+const pages = [];
+for (let i = start; i <= end; i++) pages.push(i);
+---
+
+<!-- Pagination -->
+<div class="flex justify-center mt-10 space-x-2 text-sm text-gray-700">
+  <!-- Botón Anterior -->
+  {currentPage > 1 ? (
+    <a href={currentPage === 2 ? `/` : `${basePath}/${currentPage - 1}`}>
+      <button class="px-3 py-1 text-blue-600 hover:underline">Anterior</button>
+    </a>
+  ) : (
+    <button class="px-3 py-1 text-gray-400" disabled>Anterior</button>
+  )}
+
+  <!-- Botones numerados -->
+  {start > 1 && (
+    <>
+      <a href="/"><button class="px-3 py-1 border rounded hover:bg-gray-200">1</button></a>
+      {start > 2 && <span class="px-3 py-1">…</span>}
+    </>
+  )}
+
+  {pages.map((page) => (
+    <a href={page === 1 ? "/" : `${basePath}/${page}`}>
+      <button
+        class={`px-3 py-1 border rounded ${
+          page === currentPage ? "bg-gray-400" : "hover:bg-gray-200"
+        }`}
+      >
+        {page}
+      </button>
+    </a>
+  ))}
+
+  {end < totalPages && (
+    <>
+      {end < totalPages - 1 && <span class="px-3 py-1">…</span>}
+      <a href={`${basePath}/${totalPages}`}>
+        <button class="px-3 py-1 border rounded hover:bg-gray-200">
+          {totalPages}
+        </button>
+      </a>
+    </>
+  )}
+
+  <!-- Botón Siguiente -->
+  {currentPage < totalPages ? (
+    <a href={`${basePath}/${currentPage + 1}`}>
+      <button class="px-3 py-1 text-blue-600 hover:underline">Siguiente</button>
+    </a>
+  ) : (
+    <button class="px-3 py-1 text-gray-400" disabled>Siguiente</button>
+  )}
+</div>
