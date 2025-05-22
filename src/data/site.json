@@ -1,6 +1,7 @@
 {
     "name": "Restaurant Afrodita",
-    "description": "Directorio de restaurantes y bares", 
+    "description": "Directorio de restaurantes y bares",
+    "fullDescription": "Directorio de restaurantes y bares en la ciudad de La Paz, Bolivia. Encuentra los mejores lugares para disfrutar de una buena comida y bebida.",
     "baseUrl": "https://restaurantafrodita.com",
     "languaje": "es",
     "postPerPage": 4

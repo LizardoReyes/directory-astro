@@ -18,8 +18,10 @@ const { category, posts, currentPage, totalPages, basePath } = Astro.props as Ca
 const { name } = getSiteInfo();
 ---
 
-<Layout title={"▷ " + category.title + " - Page " + currentPage + " - " + name} description={category.description}>
-  <main class="container mx-auto px-4 py-10">
+<Layout 
+  title={`▷ ${category.title}${currentPage > 1 ? ` - Pagina ${currentPage}` : ''} - ${name}`} 
+  description={category.description}>
+    <main class="container mx-auto px-4 py-10">
     <!-- Categoría: Frigiliana -->
     <section class="bg-white shadow-md rounded-lg p-8">
       <!-- Título de la categoría -->

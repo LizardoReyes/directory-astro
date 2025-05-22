@@ -11,7 +11,7 @@ const currentPage = parseInt(page);
 
 const posts = getAllItems<PostType>(postsFilePath);
 
-const { name, description, postPerPage } = getSiteInfo();
+const { name, description, fullDescription, postPerPage } = getSiteInfo();
 
 const paginatedPosts = posts.slice(
   (currentPage - 1) * postPerPage,
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 }
 ---
 
-<Layout title={`${name} - Página ${currentPage}`} description={description.slice(0, 150) + "..."}>
+<Layout title={currentPage > 1 ? `${name} - ${description} - Página ${currentPage}`: `${name}`} description={fullDescription.slice(0, 150) + "..."}>
   <main class="container mx-auto px-4 py-10">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {paginatedPosts.map((post) => <CardHome post={post} />)}

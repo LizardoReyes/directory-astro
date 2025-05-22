@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from "astro:transitions";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { getSiteInfo } from "../libs/csv";
@@ -26,32 +27,17 @@ const { baseUrl } = getSiteInfo();
 
     <!-- Open Graph (para redes sociales) -->
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description.slice(20)+"..."} />
+    <meta property="og:description" content={description} />
     {image && <meta property="og:image" content={baseUrl + "/" + image} />}
     <meta property="og:url" content={baseUrl + "/" + slug} />
     <meta property="og:type" content="website" />
+    <ViewTransitions />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- JavaScript para togglear el menú -->
-    <script defer>
-      document.addEventListener("DOMContentLoaded", function () {
-        const menuButton = document.getElementById("menu-button");
-        const mobileMenu = document.getElementById("mobile-menu");
-
-        menuButton?.addEventListener("click", function () {
-          if (
-            mobileMenu?.style.display === "none" ||
-            mobileMenu?.style.display === ""
-          ) {
-            mobileMenu.style.display = "block";
-          } else {
-            mobileMenu.style.display = "none";
-          }
-        });
-      });
-    </script>
+    <script src="./scripts/toggleMenu.js" defer></script>
   </head>
 
   <body class="bg-gray-100">

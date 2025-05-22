@@ -1,6 +1,9 @@
 ---
 const { currentPage, totalPages, basePath = "/page" } = Astro.props;
 
+// Si solo hay 1 pagina
+if (totalPages <= 1) return null;
+
 // Número máximo de botones visibles
 const maxButtons = 5;
 
@@ -19,7 +22,7 @@ for (let i = start; i <= end; i++) pages.push(i);
   <!-- Botón Anterior -->
   {currentPage > 1 ? (
     <a href={currentPage === 2 ? `/` : `${basePath}/${currentPage - 1}`}>
-      <button class="px-3 py-1 text-blue-600 hover:underline">Anterior</button>
+      <button class="px-3 py-1 text-blue-600 hover:underline cursor-pointer">Anterior</button>
     </a>
   ) : (
     <button class="px-3 py-1 text-gray-400" disabled>Anterior</button>
@@ -28,7 +31,7 @@ for (let i = start; i <= end; i++) pages.push(i);
   <!-- Botones numerados -->
   {start > 1 && (
     <>
-      <a href="/"><button class="px-3 py-1 border rounded hover:bg-gray-200">1</button></a>
+      <a href="/"><button class="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer">1</button></a>
       {start > 2 && <span class="px-3 py-1">…</span>}
     </>
   )}
@@ -36,7 +39,7 @@ for (let i = start; i <= end; i++) pages.push(i);
   {pages.map((page) => (
     <a href={page === 1 ? "/" : `${basePath}/${page}`}>
       <button
-        class={`px-3 py-1 border rounded ${
+        class={`px-3 py-1 border rounded cursor-pointer ${
           page === currentPage ? "bg-gray-400" : "hover:bg-gray-200"
         }`}
       >
@@ -49,7 +52,7 @@ for (let i = start; i <= end; i++) pages.push(i);
     <>
       {end < totalPages - 1 && <span class="px-3 py-1">…</span>}
       <a href={`${basePath}/${totalPages}`}>
-        <button class="px-3 py-1 border rounded hover:bg-gray-200">
+        <button class="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer">
           {totalPages}
         </button>
       </a>
@@ -59,7 +62,7 @@ for (let i = start; i <= end; i++) pages.push(i);
   <!-- Botón Siguiente -->
   {currentPage < totalPages ? (
     <a href={`${basePath}/${currentPage + 1}`}>
-      <button class="px-3 py-1 text-blue-600 hover:underline">Siguiente</button>
+      <button class="px-3 py-1 text-blue-600 hover:underline cursor-pointer">Siguiente</button>
     </a>
   ) : (
     <button class="px-3 py-1 text-gray-400" disabled>Siguiente</button>
