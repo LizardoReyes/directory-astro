@@ -1,11 +1,14 @@
 ---
+import { getTranslations } from '../i18n';
 import { getSiteInfo } from "../libs/csv";
 
-const { name } = getSiteInfo();
+const { name, language } = getSiteInfo();
+const t = getTranslations(language);
 const year = new Date().getFullYear();
+
 ---
 
 <footer class="bg-gray-900 text-white text-center py-4">
   © {year}
-  {name}. Todos los derechos reservados.
+  {name}. {t.MESSAGE_FOOTER}
 </footer>

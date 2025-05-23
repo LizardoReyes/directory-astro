@@ -1,5 +1,5 @@
 ---
-import CardLocalidades from "../components/card/CardLocalidades.astro";
+import CardLocalidades from "../components/card/CardLocalities.astro";
 import Pagination from "../components/Pagination.astro";
 import Layout from "../layouts/Layout.astro";
 import { categoriesFilePath } from "../libs/constants";
@@ -28,7 +28,7 @@ const categories = getAllItems<CategoryType>(categoriesFilePath);
         <!-- Posts -->
         {
           categories.map((category) => (
-            <CardLocalidades category={category} numberOfPosts={10} />
+            <CardLocalidades category={category} />
           ))
         }
       </div>

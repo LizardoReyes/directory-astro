@@ -4,13 +4,15 @@ import Layout from "../layouts/Layout.astro";
 import { getSiteInfo } from "../libs/csv";
 import { getDateTimeString } from "../libs/global";
 import { type PageType } from "../types/PageType";
+import {getTranslations} from "../i18n";
 
 type PageProps = {
   page: PageType;
 };
 
 const { page } = Astro.props as PageProps;
-const { name } = getSiteInfo();
+const { name, language } = getSiteInfo();
+const t = getTranslations(language);
 ---
 
 <Layout title={"▷ " + page.title + " - " + name} description={page.content.slice(0,150) + "..."}>
@@ -24,8 +26,8 @@ const { name } = getSiteInfo();
 
       <!-- Meta información -->
       <div class="text-sm text-gray-500 mb-6 flex flex-wrap gap-4">
-        <span>📅 Publicado el {getDateTimeString(page.publishedAt)}</span>
-        <span>✍️ Autor: Juan Pérez</span>
+        <span>📅 {t.PUBLISHED_TEXT} {getDateTimeString(page.publishedAt)}</span>
+        <span>✍️ {t.AUTHOR_TEXT} Juan Pérez</span>
       </div>
 
       <!-- Imagen destacada -->

@@ -1,4 +1,3 @@
-
 id,title,slug,description,image,publishedAt
 1,Categoría 1,categoria-1,Descripción de la categoría 1,image1.webp,2025-10-01T00:00:00Z
 2,Categoría 2,categoria-2,Descripción de la categoría 2,image1.webp,2025-10-01T00:00:00Z
@@ -6,3 +5,17 @@ id,title,slug,description,image,publishedAt
 4,Categoría 4,categoria-4,Descripción de la categoría 4,image1.webp,2025-10-01T00:00:00Z
 5,Categoría 5,categoria-5,Descripción de la categoría 5,image1.webp,2025-10-01T00:00:00Z
 6,Categoría 6,categoria-6,Descripción de la categoría 6,image1.webp,2025-10-01T00:00:00Z
+7,Categoría 7,categoria-7,Descripción de la categoría 7,image1.webp,2025-10-01T00:00:00Z
+8,Categoría 8,categoria-8,Descripción de la categoría 8,image1.webp,2025-10-01T00:00:00Z
+9,Categoría 9,categoria-9,Descripción de la categoría 9,image1.webp,2025-10-01T00:00:00Z
+10,Categoría 10,categoria-10,Descripción de la categoría 10,image1.webp,2025-10-01T00:00:00Z
+11,Categoría 11,categoria-11,Descripción de la categoría 11,image1.webp,2025-10-01T00:00:00Z
+12,Categoría 12,categoria-12,Descripción de la categoría 12,image1.webp,2025-10-01T00:00:00Z
+13,Categoría 13,categoria-13,Descripción de la categoría 13,image1.webp,2025-10-01T00:00:00Z
+14,Categoría 14,categoria-14,Descripción de la categoría 14,image1.webp,2025-10-01T00:00:00Z
+15,Categoría 15,categoria-15,Descripción de la categoría 15,image1.webp,2025-10-01T00:00:00Z
+16,Categoría 16,categoria-16,Descripción de la categoría 16,image1.webp,2025-10-01T00:00:00Z
+17,Categoría 17,categoria-17,Descripción de la categoría 17,image1.webp,2025-10-01T00:00:00Z
+18,Categoría 18,categoria-18,Descripción de la categoría 18,image1.webp,2025-10-01T00:00:00Z
+19,Categoría 19,categoria-19,Descripción de la categoría 19,image1.webp,2025-10-01T00:00:00Z
+20,Categoría 20,categoria-20,Descripción de la categoría 20,image1.webp,2025-10-01T00:00:00Z

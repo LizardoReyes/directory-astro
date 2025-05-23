@@ -6,11 +6,11 @@ import { createSlug } from "../../../libs/global";
 import Category from "../../../components/Category.astro";
 import { categoriesFilePath, postsFilePath } from "../../../libs/constants";
 
-const { content, page } = Astro.params;
+const { category: categorySlug, page } = Astro.params;
 const currentPage = parseInt(page);
 
 // Cargar configuración del sitio (posts por página)
-const { postPerPage } = getSiteInfo();
+const { postPerPage, baseUrl } = getSiteInfo();
 
 // Cargar categorías y posts
 const categories = getAllItems<CategoryType>(categoriesFilePath);
@@ -18,11 +18,11 @@ const posts = getAllItems<PostType>(postsFilePath);
 
 // Buscar categoría por slug o por título convertido a slug
 const category = categories.find(
-  (cat) => (createSlug(cat.title) || cat.slug) === content
+  (cat) => (createSlug(cat.title) || cat.slug) === categorySlug
 );
 
 if (!category) {
-  throw new Error(`Categoría no encontrada para slug: ${content}`);
+  throw new Error(`Categoría no encontrada para slug: ${categorySlug}`);
 }
 
 // Filtrar posts que pertenecen a la categoría
@@ -44,7 +44,7 @@ export async function getStaticPaths() {
   const categories = getAllItems<CategoryType>(categoriesFilePath);
   const posts = getAllItems<PostType>(postsFilePath);
 
-  const paths = [];
+  const paths: { params: { category: string; page: string } }[] = [];
 
   for (const category of categories) {
     const filteredPosts = posts.filter(
@@ -55,7 +55,7 @@ export async function getStaticPaths() {
     for (let i = 2; i <= totalPages; i++) {
       paths.push({
         params: {
-          content: category.slug,
+          category: category.slug,
           page: i.toString(),
         },
       });

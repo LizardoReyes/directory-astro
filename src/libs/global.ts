@@ -1,3 +1,10 @@
+import fs from "node:fs";
+import path from "path";
+import {siteFilePath} from "./constants.ts";
+
+const file = fs.readFileSync(path.resolve(siteFilePath), 'utf-8');
+const { language } = JSON.parse(file);
+
 export function createSlug(input: string | undefined) {
   const a =
     "àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;";
@@ -28,7 +35,7 @@ export function getDateTimeString(date: string | Date) {
     throw new Error("Invalid date format");
   }
 
-  return new Intl.DateTimeFormat("es", {
+  return new Intl.DateTimeFormat(language, {
     day: "numeric",
     month: "long",
     year: "numeric",

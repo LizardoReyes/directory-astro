@@ -3,7 +3,7 @@ export type SiteType = {
   description: string;
   fullDescription: string;
   baseUrl: string;
-  languaje: string;
-  url: string;
+  language: string;
   postPerPage: number;
+  minPostPerCategoryIndex: number;
 };

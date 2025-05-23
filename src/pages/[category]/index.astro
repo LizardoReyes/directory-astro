@@ -1,0 +1,61 @@
+---
+import {getAllItems, getItemBySlug, getItemsByCategoryId, getSiteInfo} from "../../libs/csv";
+import type {CategoryType} from "../../types/CategoryType";
+import {categoriesFilePath, postsFilePath} from "../../libs/constants";
+import type {PostType} from "../../types/PostType";
+import {createSlug} from "../../libs/global";
+import Category from "../../components/Category.astro";
+
+const { category: slug } = Astro.params;
+const { minPostPerCategoryIndex } = getSiteInfo();
+
+// Verificamos si existe la categoría
+const category = getItemBySlug<CategoryType>(categoriesFilePath, slug);
+
+// Verificamos si existe el post, página o categoría
+if (!category) {
+    return Astro.redirect("/404");
+}
+
+const numberOfPosts = getItemsByCategoryId(category.id).length;
+console.log(minPostPerCategoryIndex, numberOfPosts, numberOfPosts >= minPostPerCategoryIndex);
+
+// Si es categoría, preparamos posts paginados (página 1)
+let paginatedPosts: PostType[] = [];
+let totalPages = 1;
+
+if (category) {
+    const { postPerPage } = getSiteInfo();
+
+    const allPosts = getAllItems<PostType>(postsFilePath);
+
+    const filteredPosts = allPosts.filter(
+        (post) => post.category_id === category.id
+    );
+
+    totalPages = Math.ceil(filteredPosts.length / postPerPage);
+
+    // Mostramos solo la primera página aquí (page 1)
+    paginatedPosts = filteredPosts.slice(0, postPerPage);
+}
+
+export async function getStaticPaths() {
+    const allCategories = getAllItems<CategoryType>(categoriesFilePath);
+    return allCategories.map((category) => ({
+        params: {
+            category: createSlug(category.title || category.slug),
+        },
+    }));
+}
+---
+
+{category && (
+<Category
+        category={category}
+        posts={paginatedPosts}
+        currentPage={1}
+        totalPages={totalPages}
+        index={numberOfPosts >= minPostPerCategoryIndex}
+        basePath={`/${category.slug}/page`}
+/>
+    )}

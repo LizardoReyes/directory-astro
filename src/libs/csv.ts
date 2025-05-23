@@ -1,10 +1,11 @@
 import fs from 'node:fs';
 import path from "path";
 import Papa from "papaparse";
-import { createSlug } from "./global";
-import type { PostType } from "../types/PostType";
-import type { SiteType } from "../types/SiteType";
-import { siteFilePath } from "./constants";
+import {createSlug} from "./global";
+import type {PostType} from "../types/PostType";
+import type {SiteType} from "../types/SiteType";
+import {categoriesFilePath, postsFilePath, siteFilePath} from "./constants";
+import type {CategoryType} from "../types/CategoryType.ts";
 
 // Requiere que T tenga al menos un campo 'slug' de tipo string
 export type WithSlug = { title: string; slug: string; id?: string, publishedAt: Date };
@@ -43,7 +44,21 @@ export function getItemById<T extends WithSlug>(
   return items.find((item) => item.id === id);
 }
 
-// GET POST BY SLUG
+// GET POST BY SLUG AND CATEGORY SLUG
+export function getPostBySlugAndCategorySlug(
+    postSlug: string | undefined,
+    categorySlug: string | undefined
+    ): PostType | undefined {
+  const category = getItemBySlug<CategoryType>(categoriesFilePath, categorySlug);
+  if (!category) return;
+
+  const post = getItemBySlug<PostType>(postsFilePath, postSlug);
+  if (!post) return;
+
+  if (post.category_id != category.id) return;
+  return post;
+}
+
 // CATEGORY BY SLUG
 // PAGE BY SLUG
 export function getItemBySlug<T extends WithSlug>(
@@ -58,16 +73,14 @@ export function getItemBySlug<T extends WithSlug>(
 
 // GET CATEGORIES BY POST ID
 export function getItemsByCategoryId(
-  filePath: string,
   categoryId: string | undefined
 ): PostType[] {
-  const post = getAllItems<PostType>(filePath);
+  const post = getAllItems<PostType>(postsFilePath);
   return post.filter((item) => item.category_id === categoryId);
 }
 
 // GET SITE INFO
 export function getSiteInfo(): SiteType {
   const file = fs.readFileSync(path.resolve(siteFilePath), 'utf-8');
-  const data = JSON.parse(file);
-  return data;
+  return JSON.parse(file);
 }

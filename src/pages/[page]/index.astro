@@ -1,0 +1,28 @@
+---
+// PAGES
+import { pagesFilePath } from '../../libs/constants';
+import { getItemBySlug, getAllItems } from '../../libs/csv';
+import { createSlug } from '../../libs/global';
+import type { PageType } from '../../types/PageType';
+import Page from '../../components/Page.astro';
+
+const { page: slug } = Astro.params;
+
+// Verificamos si existe la página
+const page = getItemBySlug<PageType>(pagesFilePath, slug);
+
+// Verificamos si existe la pagina
+if (!page) {
+  throw new Error("404");
+}
+
+export async function getStaticPaths() {
+  const pages = getAllItems<PageType>(pagesFilePath).map((page) => ({
+    params: { page: createSlug(page.title || page.slug) },
+  }));
+
+  return [...pages];
+}
+---
+
+{page && <Page page={page} />}

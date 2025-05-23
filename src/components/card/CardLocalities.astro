@@ -1,21 +1,25 @@
 ---
-import { createSlug } from "../../libs/global";
 import type { CategoryType } from "../../types/CategoryType";
 import OptimizedImage from "../images/OptimizedImage.astro";
+import {createCategoryUrl} from "../../libs/urls";
+import {getItemsByCategoryId, getSiteInfo} from "../../libs/csv";
+import {getTranslations} from "../../i18n";
 
 type CategoryProps = {
   category: CategoryType;
-  numberOfPosts: number;
 };
 
-const { category, numberOfPosts } = Astro.props as CategoryProps;
+const { language, minPostPerCategoryIndex } = getSiteInfo();
+const t = getTranslations(language);
+const { category } = Astro.props as CategoryProps;
+const numberOfPosts = getItemsByCategoryId(category.id).length;
 ---
 
 <!-- Localidad -->
 <div
   class="bg-gray-50 rounded-lg shadow-sm p-5 flex flex-col items-center text-center"
 >
-  <a href={category.slug || createSlug(category.title)}>
+  <a href={createCategoryUrl(category)}>
     <OptimizedImage
       src={category.image}
       alt={category.title}
@@ -24,14 +28,14 @@ const { category, numberOfPosts } = Astro.props as CategoryProps;
   </a>
 
   <h2 class="text-xl font-semibold text-blue-700 mb-2">
-    <a href={category.slug || createSlug(category.title)}>{category.title}</a>
+    <a href={createCategoryUrl(category)}>{category.title}</a>
   </h2>
   <p class="text-sm text-gray-600 mb-4">
-    {numberOfPosts} artículo{numberOfPosts > 1 ? "s" : ""}
+    {numberOfPosts + " "}{numberOfPosts > 1 ? t.ARTICLE_TEXT_PLURAL : t.ARTICLE_TEXT}
   </p>
   <a
-    href={category.slug || createSlug(category.title)}
+    href={createCategoryUrl(category)}
     class="bg-blue-600 text-white text-sm px-20 py-2 rounded hover:bg-blue-700"
-    >Ver artículos »</a
+    >{t.MESSAGE_CLICK_POST_PLURAL}</a
   >
 </div>

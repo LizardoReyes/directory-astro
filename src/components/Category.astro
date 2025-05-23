@@ -5,6 +5,7 @@ import Layout from "../layouts/Layout.astro";
 import { getSiteInfo } from "../libs/csv";
 import { type CategoryType } from "../types/CategoryType";
 import type { PostType } from "../types/PostType";
+import {getTranslations} from "../i18n";
 
 type CategoryProps = {
   category: CategoryType;
@@ -12,21 +13,23 @@ type CategoryProps = {
   totalPages: number;
   basePath: string;
   posts: PostType[];
+  index?: boolean;
 };
 
-const { category, posts, currentPage, totalPages, basePath } = Astro.props as CategoryProps;
-const { name } = getSiteInfo();
+const { category, posts, currentPage, totalPages, basePath, index } = Astro.props as CategoryProps;
+const { name, language } = getSiteInfo();
+const t = getTranslations(language);
 ---
 
 <Layout 
-  title={`▷ ${category.title}${currentPage > 1 ? ` - Pagina ${currentPage}` : ''} - ${name}`} 
-  description={category.description}>
+  title={`▷ ${category.title}${currentPage > 1 ? ` - ${t.PAGE_TITLE} ${currentPage}` : ''} - ${name}`}
+  description={category.description} index={index}>
     <main class="container mx-auto px-4 py-10">
     <!-- Categoría: Frigiliana -->
     <section class="bg-white shadow-md rounded-lg p-8">
       <!-- Título de la categoría -->
       <h1 class="text-3xl font-bold text-gray-800 mb-6">
-        Categoría: {category.title}
+          {t.CATEGORY_TEXT} {category.title}
       </h1>
 
       <!-- Descripción opcional -->

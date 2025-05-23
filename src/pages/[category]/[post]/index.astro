@@ -1,0 +1,31 @@
+---
+import Post from '../../../components/Post.astro';
+import {getAllItems, getPostBySlugAndCategorySlug} from '../../../libs/csv';
+import {createSlug} from '../../../libs/global';
+import type {PostType} from '../../../types/PostType';
+import {categoriesFilePath, postsFilePath} from "../../../libs/constants";
+import type {CategoryType} from "../../../types/CategoryType";
+
+const {category: categorySlug, post: postSlug} = Astro.params;
+
+// Verificamos si existe el POST
+const post = getPostBySlugAndCategorySlug(postSlug, categorySlug);
+
+// Verificamos si existe el post
+if (!post) {
+    throw new Error("404");
+}
+
+export async function getStaticPaths() {
+    const posts = getAllItems<PostType>(postsFilePath).map((post) => ({
+        params: {
+            post: createSlug(post.title || post.slug),
+            category: getAllItems<CategoryType>(categoriesFilePath).
+            find((category) => category.id === post.category_id)?.slug,
+        },
+    }));
+    return [...posts];
+}
+---
+
+{post && <Post post={post}/>}

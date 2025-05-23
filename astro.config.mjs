@@ -9,9 +9,6 @@ const site = await readFile("./src/data/site.json", "utf-8");
 const { baseUrl } = JSON.parse(site);
 
 export default defineConfig({
-  experimental: {
-    viewTransitions: true
-  },
   site: baseUrl,
   integrations: [
     minifyHtml({

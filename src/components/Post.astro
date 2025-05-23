@@ -6,6 +6,9 @@ import { categoriesFilePath, postsFilePath } from "../libs/constants";
 import { getItemById, getItemsByCategoryId, getSiteInfo } from "../libs/csv";
 import { getDateTimeString } from "../libs/global";
 import { type PostType } from "../types/PostType";
+import {createCategoryUrl} from "../libs/urls";
+import type {CategoryType} from "../types/CategoryType";
+import {getTranslations} from "../i18n";
 
 type PostProps = {
   post: PostType;
@@ -13,16 +16,16 @@ type PostProps = {
 
 const { post } = Astro.props as PostProps;
 
-const { name } = getSiteInfo();
-const category = getItemById(categoriesFilePath, post.category_id);
+const { name, language } = getSiteInfo();
+const t = getTranslations(language);
+const category = getItemById<CategoryType>(categoriesFilePath, post.category_id);
 
 const postRelated = getItemsByCategoryId(
-  postsFilePath,
   post.category_id
 ).filter(
   (relatedPost) =>
     relatedPost.category_id === post.category_id && relatedPost.id !== post.id
-);
+).slice(0, 6);
 ---
 
 <Layout title={"▷ " + post.title + " - " + name} description={post.content.slice(0,150) + "..."} image={post.image}>
@@ -36,10 +39,10 @@ const postRelated = getItemsByCategoryId(
 
       <!-- Meta información -->
       <div class="text-sm text-gray-500 mb-6 flex flex-wrap gap-4">
-        <span>📅 Publicado el {getDateTimeString(post.publishedAt)}</span>
-        <span>✍️ Autor: Juan Pérez</span>
+        <span>📅 {t.PUBLISHED_TEXT} {getDateTimeString(post.publishedAt)}</span>
+        <span>✍️ {t.AUTHOR_TEXT} Juan Pérez</span>
         <span
-          >🏷️ Categoría: <a href={category?.slug} class="hover:text-blue-600"
+          >🏷️ {t.CATEGORY_TEXT} <a href={createCategoryUrl(category)} class="hover:text-blue-600"
             >{category?.title}</a
           ></span
         >
@@ -62,7 +65,7 @@ const postRelated = getItemsByCategoryId(
     <!-- Artículos relacionados con fondo blanco -->
     <section class="bg-white shadow-md rounded-lg p-8 mt-10">
       <h2 class="text-2xl font-semibold text-gray-800 mb-6">
-        Artículos relacionados
+        {t.RELATED_POSTS_TEXT}
       </h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Cards -->

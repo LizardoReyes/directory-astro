@@ -1,13 +1,31 @@
 ---
-const { currentPage, totalPages, basePath = "/page" } = Astro.props;
+import {getSiteInfo} from "../libs/csv";
+import {getTranslations} from "../i18n";
 
-// Si solo hay 1 pagina
+const { language } = getSiteInfo();
+const t = getTranslations(language);
+
+const {
+  currentPage,
+  totalPages,
+  basePath = "/page", // puede ser "/page" o "/categoria/page"
+} = Astro.props;
+
 if (totalPages <= 1) return null;
 
-// Número máximo de botones visibles
-const maxButtons = 5;
+// Función que genera la URL para una página dada
+const getPageUrl = (n: number) => {
+  if (n === 1) {
+    // Si es la página 1
+    return basePath === "/page"
+        ? "/" // Home
+        : basePath.replace(/\/page$/, ""); // Categoría
+  }
+  return `${basePath}/${n}`;
+};
 
-// Calcular botones visibles
+// Control de botones visibles
+const maxButtons = 5;
 let start = Math.max(1, currentPage - Math.floor(maxButtons / 2));
 let end = Math.min(totalPages, start + maxButtons - 1);
 if (end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
@@ -18,53 +36,55 @@ for (let i = start; i <= end; i++) pages.push(i);
 ---
 
 <!-- Pagination -->
-<div class="flex justify-center mt-10 space-x-2 text-sm text-gray-700">
+<div class="flex justify-center mt-10 space-x-2 text-sm text-gray-700 flex-wrap">
   <!-- Botón Anterior -->
   {currentPage > 1 ? (
-    <a href={currentPage === 2 ? `/` : `${basePath}/${currentPage - 1}`}>
-      <button class="px-3 py-1 text-blue-600 hover:underline cursor-pointer">Anterior</button>
-    </a>
+      <a href={getPageUrl(currentPage - 1)}>
+        <button class="px-3 py-1 text-blue-600 hover:underline cursor-pointer">{t.PREVIOUS_TEXT}</button>
+      </a>
   ) : (
-    <button class="px-3 py-1 text-gray-400" disabled>Anterior</button>
+      <button class="px-3 py-1 text-gray-400 cursor-not-allowed" disabled>{t.PREVIOUS_TEXT}</button>
   )}
 
-  <!-- Botones numerados -->
+  <!-- Botones numerados con ... -->
   {start > 1 && (
-    <>
-      <a href="/"><button class="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer">1</button></a>
-      {start > 2 && <span class="px-3 py-1">…</span>}
-    </>
+      <>
+        <a href={getPageUrl(1)}>
+          <button class="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer">1</button>
+        </a>
+        {start > 2 && <span class="px-3 py-1">…</span>}
+      </>
   )}
 
   {pages.map((page) => (
-    <a href={page === 1 ? "/" : `${basePath}/${page}`}>
-      <button
-        class={`px-3 py-1 border rounded cursor-pointer ${
-          page === currentPage ? "bg-gray-400" : "hover:bg-gray-200"
-        }`}
-      >
-        {page}
-      </button>
-    </a>
+      <a href={getPageUrl(page)}>
+        <button
+            class={`px-3 py-1 border rounded cursor-pointer ${
+                page === currentPage ? "bg-gray-400 text-white" : "hover:bg-gray-200"
+            }`}
+        >
+          {page}
+        </button>
+      </a>
   ))}
 
   {end < totalPages && (
-    <>
-      {end < totalPages - 1 && <span class="px-3 py-1">…</span>}
-      <a href={`${basePath}/${totalPages}`}>
-        <button class="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer">
-          {totalPages}
-        </button>
-      </a>
-    </>
+      <>
+        {end < totalPages - 1 && <span class="px-3 py-1">…</span>}
+        <a href={getPageUrl(totalPages)}>
+          <button class="px-3 py-1 border rounded hover:bg-gray-200 cursor-pointer">
+            {totalPages}
+          </button>
+        </a>
+      </>
   )}
 
   <!-- Botón Siguiente -->
   {currentPage < totalPages ? (
-    <a href={`${basePath}/${currentPage + 1}`}>
-      <button class="px-3 py-1 text-blue-600 hover:underline cursor-pointer">Siguiente</button>
-    </a>
+      <a href={getPageUrl(currentPage + 1)}>
+        <button class="px-3 py-1 text-blue-600 hover:underline cursor-pointer">{t.NEXT_TEXT}</button>
+      </a>
   ) : (
-    <button class="px-3 py-1 text-gray-400" disabled>Siguiente</button>
+      <button class="px-3 py-1 text-gray-400 cursor-not-allowed" disabled>{t.NEXT_TEXT}</button>
   )}
 </div>

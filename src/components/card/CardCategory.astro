@@ -2,37 +2,44 @@
 import { createSlug, getDateTimeString } from "../../libs/global.ts";
 import type { PostType } from "../../types/PostType";
 import OptimizedImage from "../images/OptimizedImage.astro";
+import {createPostUrl} from "../../libs/urls";
+import {getItemById, getSiteInfo} from "../../libs/csv";
+import {categoriesFilePath} from "../../libs/constants";
+import type {CategoryType} from "../../types/CategoryType";
+import {getTranslations} from "../../i18n";
 
 type PostProps = {
   post: PostType;
 };
 
+const { language } = getSiteInfo();
+const t = getTranslations(language);
 const { post } = Astro.props as PostProps;
+const category = getItemById<CategoryType>(categoriesFilePath, post.category_id);
 ---
 
 <!-- Artículo -->
 <div class="bg-gray-50 rounded-lg shadow-sm p-5 flex flex-col">
-  <a href={post.slug || createSlug(post.title)}>
+  <a href={createPostUrl(post, category)}>
     <OptimizedImage
       src={post.image}
       alt={post.title}
       class="rounded-lg mb-4 w-full h-48 object-cover"
     />
   </a>
-  <h2 class="text-lg font-bold text-blue-700 mb-2">
-    <a href={post.slug || createSlug(post.title)}>
+  <h2 class="text-lg font-bold text-center text-blue-700 mb-2">
+    <a href={createPostUrl(post, category)}>
       {post.title}
     </a>
   </h2>
-  <p class="text-xs text-gray-500 mb-2">
+  <p class="text-xs text-gray-500 text-center mb-2">
     📅 {getDateTimeString(post.publishedAt)} — ✍️ Juan Pérez
   </p>
-  <p class="text-sm text-gray-700 mb-4 flex-grow">
-    {post.content}
+  <p class="text-sm text-center text-gray-700 mb-4 flex-grow" set:html={post.content}>
   </p>
   <a
-    href={post.slug || createSlug(post.title)}
+    href={createPostUrl(post, category)}
     class="bg-blue-600 text-white text-sm text-center px-4 py-2 rounded hover:bg-blue-700"
-    >Ver artículo »</a
+    >{t.MESSAGE_CLICK_POST}</a
   >
 </div>
