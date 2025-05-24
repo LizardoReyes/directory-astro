@@ -13,8 +13,10 @@ type Props = {
   index?: boolean;
 };
 
-const { title, description = "", image = "", slug = "", index = true } = Astro.props as Props;
-const { baseUrl, language } = getSiteInfo();
+const { title, description = "", image = "", index = true } = Astro.props as Props;
+const { baseUrl: defaultUrl, language } = getSiteInfo();
+const baseUrl = Astro.site?.origin || defaultUrl;
+const actualUrl = Astro.url.pathname;
 ---
 
 <html lang={language} data-theme="red">
@@ -23,14 +25,14 @@ const { baseUrl, language } = getSiteInfo();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link rel="canonical" href={baseUrl + "/" + slug} />
+  <link rel="canonical" href={actualUrl} />
   <meta name="robots" content={index ? "index, follow" : "noindex, follow"} />
 
   <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  {image && <meta property="og:image" content={baseUrl + "/" + image} />}
-  <meta property="og:url" content={baseUrl + "/" + slug} />
+  {image && <meta property="og:image" content={ image.includes("http") ? image: (baseUrl + "/images/" + image) } />}
+  <meta property="og:url" content={actualUrl} />
   <meta property="og:type" content="website" />
   <ViewTransitions />
 
