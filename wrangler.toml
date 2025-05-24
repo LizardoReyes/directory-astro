@@ -1,0 +1,5 @@
+name = "astro-directory"                       # <- Nombre exacto del proyecto
+compatibility_date = "2025-05-24"        # <- Fecha actual (requerida)
+
+[site]
+bucket = "./dist"                        # <- Carpeta generada por `astro build`
