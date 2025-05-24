@@ -40,6 +40,6 @@ export function getDateTimeString(date: string | Date) {
     year: "numeric"
   }).format(parsedDate);
 
-  console.log({ language, locale, result });
+  //console.log({ language, locale, result });
   return result;
 }

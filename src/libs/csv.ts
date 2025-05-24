@@ -44,18 +44,20 @@ export function getItemById<T extends WithSlug>(
   return items.find((item) => item.id === id);
 }
 
-// GET POST BY SLUG AND CATEGORY SLUG
 export function getPostBySlugAndCategorySlug(
     postSlug: string | undefined,
     categorySlug: string | undefined
-    ): PostType | undefined {
+): PostType | undefined {
+  if (!postSlug || !categorySlug) return;
+
   const category = getItemBySlug<CategoryType>(categoriesFilePath, categorySlug);
   if (!category) return;
 
-  const post = getItemBySlug<PostType>(postsFilePath, postSlug);
-  if (!post) return;
-
-  if (post.category_id != category.id) return;
+  const allPosts = getAllItems<PostType>(postsFilePath);
+  const post = allPosts.find(
+      (p) => (p.slug || createSlug(p.title)) === postSlug && p.category_id === category.id
+  );
+  console.log(post)
   return post;
 }
 
