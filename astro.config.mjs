@@ -3,13 +3,14 @@ import minifyHtml from "astro-minify-html";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
-import { readFile } from "fs/promises";
+import { readFileSync } from "fs";
 
-const site = await readFile("./src/data/site.json", "utf-8");
+const site = readFileSync("./src/data/site.json", "utf-8");
 const { baseUrl } = JSON.parse(site);
 
 export default defineConfig({
   site: baseUrl,
+  output: "static",
   integrations: [
     // minifyHtml({
     //   minifyOptions: {
