@@ -1,5 +1,5 @@
 id,title,slug,description,image,publishedAt
-1,Categoría 1,categoria-1,Descripción de la categoría 1,image1.webp,2025-10-01T00:00:00Z
+1,Categoría 1,categoria-1,Descripción de la categoría 1,,2025-10-01T00:00:00Z
 2,Categoría 2,categoria-2,Descripción de la categoría 2,image1.webp,2025-10-01T00:00:00Z
 3,Categoría 3,categoria-3,Descripción de la categoría 3,image1.webp,2025-10-01T00:00:00Z
 4,Categoría 4,categoria-4,Descripción de la categoría 4,image1.webp,2025-10-01T00:00:00Z

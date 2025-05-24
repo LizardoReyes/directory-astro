@@ -2,7 +2,7 @@
 import { createSlug, getDateTimeString } from "../../libs/global.ts";
 import type { PostType } from "../../types/PostType";
 import OptimizedImage from "../images/OptimizedImage.astro";
-import {createPostUrl} from "../../libs/urls";
+import {createPostUrl, formatContent} from "../../libs/urls";
 import {getItemById, getSiteInfo} from "../../libs/csv";
 import {categoriesFilePath} from "../../libs/constants";
 import type {CategoryType} from "../../types/CategoryType";
@@ -19,7 +19,7 @@ const category = getItemById<CategoryType>(categoriesFilePath, post.category_id)
 ---
 
 <!-- Artículo -->
-<div class="bg-bg text-text rounded-lg shadow-sm p-5 flex flex-col border border-border transition-colors duration-300">
+<div class="bg-white text-gray-800 rounded-lg shadow-sm p-5 flex flex-col border border-[var(--color-header-bg)] transition-colors duration-300">
   <a href={createPostUrl(post, category)}>
     <OptimizedImage
         src={post.image}
@@ -29,20 +29,20 @@ const category = getItemById<CategoryType>(categoriesFilePath, post.category_id)
   </a>
 
   <h2 class="text-lg font-bold text-center text-primary mb-2">
-    <a href={createPostUrl(post, category)} class="hover:underline">
+    <a href={createPostUrl(post, category)} class="hover:underline text-[var(--color-header-bg)] line-clamp-1" title={post.title}>
       {post.title}
     </a>
   </h2>
 
-  <p class="text-xs text-muted text-center mb-2">
+  <p class="text-xs text-gray-500 text-center mb-2">
     📅 {getDateTimeString(post.publishedAt)} — ✍️ Juan Pérez
   </p>
 
-  <p class="text-sm text-center text-text mb-4 flex-grow" set:html={post.content}></p>
+  <p class="text-sm text-center text-text mb-4 flex-grow" set:html={formatContent(post.content)}></p>
 
   <a
       href={createPostUrl(post, category)}
-      class="inline-block bg-primary hover:bg-primary-hover text-center text-text text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-border transition duration-150 ease-in-out"
+      class="mt-4 inline-block text-center bg-[var(--color-header-bg)] hover:bg-[var(--color-primary-hover)] text-[var(--color-header-text)] text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-border transition duration-150 ease-in-out"
   >
     {t.MESSAGE_CLICK_POST}
   </a>

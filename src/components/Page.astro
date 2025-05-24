@@ -18,10 +18,10 @@ const t = getTranslations(language);
 <Layout title={"▷ " + page.title + " - " + name} description={page.content.slice(0,150) + "..."}>
   <main class="container mx-auto max-w-6xl px-4 py-10">
     <!-- Contenido central del artículo con fondo temático -->
-    <div class="bg-bg text-text shadow-md rounded-lg p-8 border border-border transition-colors duration-300">
+    <div class="bg-bg text-text shadow-md rounded-lg p-8 border border-[var(--color-header-bg)] transition-colors duration-300">
 
       <!-- Título -->
-      <h1 class="text-3xl font-bold text-primary mb-4">
+      <h1 class="text-3xl font-bold text-[var(--color-header-bg)] mb-4">
         {page.title}
       </h1>
 

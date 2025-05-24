@@ -22,3 +22,22 @@ export function createPageUrl(page: string | undefined): string {
     if (!page) return "";
     return `${baseUrl}/${page}`;
 }
+
+export function formatContent(content: string | undefined): string {
+    if (!content) return "";
+
+    const withLineBreaks = content.replace(/<\/p>/gi, "\n\n");
+    const plain = withLineBreaks.replace(/<[^>]*>/g, "").trim();
+
+    return plain.substring(0, 230) + (plain.length > 230 ? "..." : "");
+}
+
+export function formatFullContent(content: string | undefined): string {
+    if (!content) return "";
+
+    // Insertar salto de línea entre etiquetas de párrafo consecutivas
+    const withLineBreaks = content.replace(/<\/p>\s*<p>/gi, "</p><br/><p>");
+
+    return withLineBreaks.trim();
+}
+

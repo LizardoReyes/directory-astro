@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import {getSiteInfo} from "../libs/csv";
 import {getTranslations} from "../i18n";
 
-const { name, language } = getSiteInfo();
+const { language } = getSiteInfo();
 const t = getTranslations(language);
 ---
 
@@ -11,12 +11,16 @@ const t = getTranslations(language);
     title={"404 - " + t.NOT_FOUND_TEXT}
     description={t.NOT_FOUND_DESCRIPTION}
 >
-  <div class="flex flex-col items-center justify-center h-screen bg-bg text-text transition-colors duration-300">
-    <h1 class="text-4xl font-bold mb-4 text-primary">404 - {t.NOT_FOUND_TEXT}</h1>
-    <p class="text-lg mb-8 text-muted">{t.NOT_FOUND_TEXT_BODY}</p>
+  <div class="flex flex-col items-center justify-center h-screen bg-white text-gray-800 transition-colors duration-300">
+    <h1 class="text-4xl font-bold mb-4 text-[var(--color-header-bg)]">
+      404 - {t.NOT_FOUND_TEXT}
+    </h1>
+    <p class="text-lg mb-8 text-gray-500">
+      {t.NOT_FOUND_TEXT_BODY}
+    </p>
     <a
         href="/"
-        class="inline-block bg-primary hover:bg-primary-hover text-text text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-border transition duration-150 ease-in-out"
+        class="inline-block bg-[var(--color-header-bg)] hover:bg-[var(--color-primary-hover)] text-[var(--color-header-text)] text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-[var(--color-header-bg)] transition duration-150 ease-in-out"
     >
       {t.BACK_TO_HOME_TEXT}
     </a>

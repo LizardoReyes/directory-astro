@@ -6,7 +6,7 @@ import { categoriesFilePath, postsFilePath } from "../libs/constants";
 import { getItemById, getItemsByCategoryId, getSiteInfo } from "../libs/csv";
 import { getDateTimeString } from "../libs/global";
 import { type PostType } from "../types/PostType";
-import {createCategoryUrl} from "../libs/urls";
+import {createCategoryUrl, formatFullContent} from "../libs/urls";
 import type {CategoryType} from "../types/CategoryType";
 import {getTranslations} from "../i18n";
 
@@ -28,20 +28,21 @@ const postRelated = getItemsByCategoryId(
 ).slice(0, 6);
 ---
 
-<Layout title={"▷ " + post.title + " - " + name} description={post.content.slice(0,150) + "..."} image={post.image}>
+<Layout title={"▷ " + post.title + " - " + name} description={post.content.slice(0, 150) + "..."} image={post.image}>
   <main class="container mx-auto max-w-6xl px-4 py-10">
+
     <!-- Contenido del artículo -->
-    <div class="bg-bg text-text shadow-md rounded-lg p-8 border border-border transition-colors duration-300">
-      <h1 class="text-3xl font-bold text-primary mb-4">
+    <div class="bg-white text-gray-800 shadow-md rounded-lg p-8 border border-[var(--color-header-bg)] transition-colors duration-300">
+      <h1 class="text-3xl font-bold text-[var(--color-header-bg)] mb-4">
         {post.title}
       </h1>
 
-      <div class="text-sm text-muted mb-6 flex flex-wrap gap-4">
+      <div class="text-sm text-gray-500 mb-6 flex flex-wrap gap-4">
         <span>📅 {t.PUBLISHED_TEXT} {getDateTimeString(post.publishedAt)}</span>
         <span>✍️ {t.AUTHOR_TEXT} Juan Pérez</span>
         <span>
           🏷️ {t.CATEGORY_TEXT}
-          <a href={createCategoryUrl(category)} class="hover:text-primary underline-offset-2">
+          <a href={createCategoryUrl(category)} class="hover:text-[var(--color-header-bg)] underline-offset-2 underline">
             {category?.title}
           </a>
         </span>
@@ -54,14 +55,14 @@ const postRelated = getItemsByCategoryId(
       />
 
       <article
-          class="prose lg:prose-lg max-w-none text-text prose-a:text-primary prose-a:underline"
-          set:html={post.content}
+          class="prose lg:prose-lg max-w-none text-gray-800"
+          set:html={formatFullContent(post.content)}
       />
     </div>
 
     <!-- Artículos relacionados -->
-    <section class="bg-bg text-text shadow-md rounded-lg p-8 mt-10 border border-border transition-colors duration-300">
-      <h2 class="text-2xl font-semibold text-primary mb-6">
+    <section class="bg-white text-gray-800 shadow-md rounded-lg p-8 mt-10 border border-[var(--color-header-bg)] transition-colors duration-300">
+      <h2 class="text-2xl text-[var(--color-header-bg)] font-bold mb-6">
         {t.RELATED_POSTS_TEXT}
       </h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -72,3 +73,4 @@ const postRelated = getItemsByCategoryId(
     </section>
   </main>
 </Layout>
+

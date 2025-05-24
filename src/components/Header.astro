@@ -14,17 +14,17 @@ const pagesHeader = [
 ];
 ---
 
-<header class="bg-bg shadow py-4 text-text border-b border-border transition-colors duration-300">
+<header class="bg-[var(--color-header-bg)] text-[var(--color-header-text)] shadow py-4 border-b border-border transition-colors duration-300">
   <div class="container mx-auto px-4 flex justify-between items-center">
+    <!-- Logo / Nombre del sitio -->
     <p class="text-xl font-bold">
-      <a href="/" class="text-text font-semibold hover:text-primary"
-      >{name}</a
-      >
+      <a href="/" class="text-[var(--color-header-text)] font-semibold hover:text-[var(--color-primary)] transition">
+        {name}
+      </a>
     </p>
 
     <!-- Botón hamburguesa (visible solo en móviles) -->
-    <button id="menu-button" class="md:hidden text-text focus:outline-none">
-      <!-- Icono hamburguesa -->
+    <button id="menu-button" class="md:hidden text-[var(--color-header-text)] focus:outline-none">
       <svg
           class="w-6 h-6"
           fill="none"
@@ -41,15 +41,15 @@ const pagesHeader = [
       </svg>
     </button>
 
-    <!-- Navegación (visible en pantallas medianas en adelante) -->
+    <!-- Navegación (pantallas medianas en adelante) -->
     <nav class="hidden md:flex space-x-6" id="menu">
       {pagesHeader.map((page) => (
-        <a
-          href={page.url}
-          class="text-text font-semibold hover:text-primary transition duration-150 hover:scale-105"
-        >
-          {page.name}
-        </a>
+          <a
+              href={page.url}
+              class="text-[var(--color-header-text)] font-semibold hover:text-[var(--color-primary)] transition duration-150 hover:scale-105"
+          >
+            {page.name}
+          </a>
       ))}
     </nav>
   </div>
@@ -58,12 +58,12 @@ const pagesHeader = [
   <div class="md:hidden px-4 text-center" id="mobile-menu" style="display: none;">
     <nav class="flex flex-col space-y-2 mt-4">
       {pagesHeader.map((page) => (
-        <a
-          href={page.url}
-          class="text-text font-semibold hover:text-primary"
-        >
-          {page.name}
-        </a>
+          <a
+              href={page.url}
+              class="text-[var(--color-header-text)] font-semibold hover:text-[var(--color-primary)]"
+          >
+            {page.name}
+          </a>
       ))}
     </nav>
   </div>

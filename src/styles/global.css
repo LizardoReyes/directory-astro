@@ -1,181 +1,133 @@
 @import "tailwindcss";
 
-/* 🌐 Tema base (claro) */
+/* Neutros: contenido general (fijos) */
 :root {
-    --color-bg: #ffffff;
-    --color-text: #1f2937;
-    --color-primary: #3b82f6;
-    --color-primary-hover: #2563eb;
-    --color-border: #e5e7eb;
-    --color-muted: #6b7280;
+    --color-content-bg: #ffffff;
+    --color-content-text: #1f2937;
 }
 
-/* 🌙 Tema oscuro */
-html[data-theme="dark"] {
-    --color-bg: #1e293b;
-    --color-text: #f9fafb;
-    --color-primary: #6366f1;
-    --color-primary-hover: #4f46e5;
-    --color-border: #334155;
-    --color-muted: #94a3b8;
-}
-
-/* ❤️ Tema rojo */
-html[data-theme="red"] {
-    --color-bg: #fff5f5;
-    --color-text: #2b0d0d;
-    --color-primary: #e11d48;
-    --color-primary-hover: #be123c;
-    --color-border: #fca5a5;
-    --color-muted: #7f1d1d;
-}
-
-/* 💙 Tema azul */
-html[data-theme="blue"] {
-    --color-bg: #f0f9ff;
-    --color-text: #1e3a8a;
-    --color-primary: #3b82f6;
-    --color-primary-hover: #2563eb;
-    --color-border: #bfdbfe;
-    --color-muted: #475569;
-}
-
-/* 💚 Tema verde */
-html[data-theme="green"] {
-    --color-bg: #f0fdf4;
-    --color-text: #064e3b;
-    --color-primary: #22c55e;
-    --color-primary-hover: #16a34a;
-    --color-border: #bbf7d0;
-    --color-muted: #065f46;
-}
-
-/* 💜 Tema púrpura */
-html[data-theme="purple"] {
-    --color-bg: #faf5ff;
-    --color-text: #4c1d95;
-    --color-primary: #a855f7;
-    --color-primary-hover: #9333ea;
-    --color-border: #e9d5ff;
-    --color-muted: #6b21a8;
-}
-
-/* 🧡 Tema naranja */
-html[data-theme="orange"] {
-    --color-bg: #fff7ed;
-    --color-text: #7c2d12;
-    --color-primary: #f97316;
-    --color-primary-hover: #ea580c;
-    --color-border: #fdba74;
-    --color-muted: #9a3412;
-}
-
-/* 🌸 Tema rosa */
-html[data-theme="pink"] {
-    --color-bg: #fff1f2;
-    --color-text: #831843;
-    --color-primary: #ec4899;
-    --color-primary-hover: #db2777;
-    --color-border: #fbcfe8;
-    --color-muted: #9d174d;
-}
-
-/* ❤️ Rojo oscuro */
+/* Red oscuro */
 html[data-theme="red-dark"] {
-    --color-bg: #fff5f5;
-    --color-text: #2b0d0d;
-    --color-primary: #7f1d1d;
-    --color-primary-hover: #991b1b;
-    --color-border: #fecaca;
-    --color-muted: #7f1d1d;
-}
-
-/* 🔴 Rojo brillante */
-html[data-theme="red"] {
-    --color-bg: #fff5f5;
-    --color-text: #450a0a;
-    --color-primary: #ef4444;
-    --color-primary-hover: #dc2626;
-    --color-border: #fecaca;
-    --color-muted: #991b1b;
-}
-
-/* 🟠 Naranja */
-html[data-theme="orange"] {
-    --color-bg: #fff7ed;
-    --color-text: #7c2d12;
-    --color-primary: #f97316;
-    --color-primary-hover: #ea580c;
-    --color-border: #fdba74;
-    --color-muted: #9a3412;
-}
-
-/* 🟡 Amarillo */
-html[data-theme="yellow"] {
-    --color-bg: #fefce8;
-    --color-text: #78350f;
     --color-primary: #facc15;
-    --color-primary-hover: #eab308;
+    --color-primary-hover: #b91c1c;
+    --color-header-bg: #b91c1c;
+    --color-header-text: #ffffff;
+    --color-border: #fca5a5;
+}
+
+/* Rojo */
+html[data-theme="red"] {
+    --color-primary: #facc15;
+    --color-primary-hover: #dc2626;
+    --color-header-bg: #ef4444;
+    --color-header-text: #ffffff;
+    --color-border: #fecaca;
+}
+
+/* Naranja */
+html[data-theme="orange"] {
+    --color-primary: #ffffff;
+    --color-primary-hover: #ea580c;
+    --color-header-bg: #fb923c;
+    --color-header-text: #1f2937;
+    --color-border: #fdba74;
+}
+
+/* Amarillo */
+html[data-theme="yellow"] {
+    --color-primary: #1f2937;
+    --color-primary-hover: #facc15;
+    --color-header-bg: #fcd34d;
+    --color-header-text: #1f2937;
     --color-border: #fde68a;
-    --color-muted: #a16207;
 }
 
-/* 🟢 Verde limón */
+/* Lima */
 html[data-theme="lime"] {
-    --color-bg: #f7fee7;
-    --color-text: #365314;
-    --color-primary: #84cc16;
-    --color-primary-hover: #65a30d;
-    --color-border: #d9f99d;
-    --color-muted: #4d7c0f;
+    --color-primary: #1f2937;
+    --color-primary-hover: #84cc16;
+    --color-header-bg: #a3e635;
+    --color-header-text: #1f2937;
+    --color-border: #bef264;
 }
 
-/* 🟦 Cian */
+/* Verde */
+html[data-theme="green"] {
+    --color-primary: #ffffff;
+    --color-primary-hover: #15803d;
+    --color-header-bg: #22c55e;
+    --color-header-text: #ffffff;
+    --color-border: #bbf7d0;
+}
+
+/* Cian */
 html[data-theme="cyan"] {
-    --color-bg: #ecfeff;
-    --color-text: #083344;
-    --color-primary: #06b6d4;
-    --color-primary-hover: #0891b2;
+    --color-primary: #1f2937;
+    --color-primary-hover: #06b6d4;
+    --color-header-bg: #22d3ee;
+    --color-header-text: #1f2937;
     --color-border: #a5f3fc;
-    --color-muted: #0e7490;
 }
 
-/* 🔵 Azul celeste */
+/* Celeste (sky) */
 html[data-theme="sky"] {
-    --color-bg: #f0f9ff;
-    --color-text: #1e3a8a;
-    --color-primary: #38bdf8;
-    --color-primary-hover: #0ea5e9;
+    --color-primary: #ffffff;
+    --color-primary-hover: #0284c7;
+    --color-header-bg: #38bdf8;
+    --color-header-text: #1f2937;
     --color-border: #bae6fd;
-    --color-muted: #0369a1;
 }
 
-/* 🔵 Azul */
+/* Azul */
 html[data-theme="blue"] {
-    --color-bg: #eff6ff;
-    --color-text: #1e3a8a;
-    --color-primary: #3b82f6;
+    --color-primary: #ffffff;
     --color-primary-hover: #2563eb;
+    --color-header-bg: #3b82f6;
+    --color-header-text: #ffffff;
     --color-border: #bfdbfe;
-    --color-muted: #1d4ed8;
 }
 
-/* 🟣 Violeta */
+/* Violeta */
 html[data-theme="violet"] {
-    --color-bg: #f5f3ff;
-    --color-text: #4c1d95;
-    --color-primary: #8b5cf6;
+    --color-primary: #ffffff;
     --color-primary-hover: #7c3aed;
+    --color-header-bg: #8b5cf6;
+    --color-header-text: #ffffff;
     --color-border: #ddd6fe;
-    --color-muted: #6d28d9;
 }
 
-/* 💜 Magenta / fucsia */
+/* Fucsia */
 html[data-theme="fuchsia"] {
-    --color-bg: #fdf4ff;
-    --color-text: #701a75;
-    --color-primary: #e879f9;
-    --color-primary-hover: #d946ef;
+    --color-primary: #ffffff;
+    --color-primary-hover: #c026d3;
+    --color-header-bg: #e879f9;
+    --color-header-text: #1f2937;
     --color-border: #f5d0fe;
-    --color-muted: #a21caf;
+}
+
+/* Rosa */
+html[data-theme="pink"] {
+    --color-primary: #ffffff;
+    --color-primary-hover: #ec4899;
+    --color-header-bg: #f472b6;
+    --color-header-text: #1f2937;
+    --color-border: #fbcfe8;
+}
+
+/* Púrpura */
+html[data-theme="purple"] {
+    --color-primary: #ffffff;
+    --color-primary-hover: #7e22ce;
+    --color-header-bg: #a855f7;
+    --color-header-text: #ffffff;
+    --color-border: #e9d5ff;
+}
+
+/* Oscuro */
+html[data-theme="dark"] {
+    --color-primary: #ffffff;
+    --color-primary-hover: #334155;
+    --color-header-bg: #1e293b;
+    --color-header-text: #f9fafb;
+    --color-border: #475569;
 }

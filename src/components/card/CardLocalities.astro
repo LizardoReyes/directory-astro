@@ -17,7 +17,7 @@ const numberOfPosts = getItemsByCategoryId(category.id).length;
 
 <!-- Localidad -->
 <div
-    class="bg-bg text-text rounded-lg shadow-sm p-5 flex flex-col items-center text-center border border-border transition-colors duration-300"
+    class="bg-white text-gray-800 rounded-lg shadow-sm p-5 flex flex-col items-center text-center border border-[var(--color-header-bg)] transition-colors duration-300"
 >
   <a href={createCategoryUrl(category)}>
     <OptimizedImage
@@ -28,19 +28,19 @@ const numberOfPosts = getItemsByCategoryId(category.id).length;
   </a>
 
   <h2 class="text-xl font-semibold text-primary mb-2">
-    <a href={createCategoryUrl(category)} class="hover:underline">
+    <a href={createCategoryUrl(category)} class="hover:underline text-[var(--color-header-bg)] line-clamp-1" title={category.title}>
       {category.title}
     </a>
   </h2>
 
-  <p class="text-sm text-muted mb-4">
+  <p class="text-sm text-gray-500 mb-4">
     {numberOfPosts + " "}
     {numberOfPosts > 1 ? t.ARTICLE_TEXT_PLURAL : t.ARTICLE_TEXT}
   </p>
 
   <a
       href={createCategoryUrl(category)}
-      class="inline-block bg-primary hover:bg-primary-hover text-text text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-border transition duration-150 ease-in-out"
+      class="mt-4 inline-block bg-[var(--color-header-bg)] hover:bg-[var(--color-primary-hover)] text-[var(--color-header-text)] text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-border transition duration-150 ease-in-out"
   >
     {t.MESSAGE_CLICK_POST_PLURAL}
   </a>

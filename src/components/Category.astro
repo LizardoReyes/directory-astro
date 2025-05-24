@@ -24,7 +24,7 @@ const t = getTranslations(language);
         title={`▷ ${category.title}${currentPage > 1 ? ` - ${t.PAGE_TITLE} ${currentPage}` : ''} - ${name}`}
         description={category.description} index={index}>
     <main class="container mx-auto px-4 py-10">
-        <section class="bg-bg text-text shadow-md rounded-lg p-8 border border-border transition-colors duration-300">
+        <section class="bg-bg text-text shadow-md rounded-lg p-8 border border-[var(--color-header-bg)] transition-colors duration-300">
 
             <h1 class="text-3xl font-bold text-primary mb-6">
                 {t.CATEGORY_TEXT} {category.title}

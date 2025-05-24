@@ -18,7 +18,6 @@ if (!category) {
 }
 
 const numberOfPosts = getItemsByCategoryId(category.id).length;
-console.log(minPostPerCategoryIndex, numberOfPosts, numberOfPosts >= minPostPerCategoryIndex);
 
 // Si es categoría, preparamos posts paginados (página 1)
 let paginatedPosts: PostType[] = [];

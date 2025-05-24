@@ -3,7 +3,7 @@ import { categoriesFilePath } from "../../libs/constants";
 import {getItemById, getSiteInfo} from "../../libs/csv";
 import type { PostType } from "../../types/PostType";
 import OptimizedImage from "../images/OptimizedImage.astro";
-import {createCategoryUrl, createPostUrl} from "../../libs/urls";
+import {createCategoryUrl, createPostUrl, formatContent} from "../../libs/urls";
 import type {CategoryType} from "../../types/CategoryType";
 import {getTranslations} from "../../i18n";
 
@@ -17,17 +17,18 @@ const t = getTranslations(language);
 const category = getItemById<CategoryType>(categoriesFilePath, post.category_id);
 ---
 
-<div class="bg-bg text-text rounded-lg shadow-sm p-5 border border-border transition-colors duration-300">
+<div class="bg-white text-gray-800 rounded-lg shadow-sm p-5 border border-[var(--color-header-bg)] transition-colors duration-300">
   <h3 class="text-lg text-center font-bold text-primary mb-2">
     <a
         href={createPostUrl(post, category)}
-        class="hover:underline"
+        title={post.title}
+        class="hover:underline text-[var(--color-header-bg)] line-clamp-1"
     >
       {post.title}
     </a>
   </h3>
 
-  <p class="text-xs text-center text-muted mb-2">
+  <p class="text-xs text-center text-gray-500 mb-2">
     📍 {t.LOCATION_TEXT}
     <a
         href={createCategoryUrl(category)}
@@ -45,12 +46,12 @@ const category = getItemById<CategoryType>(categoriesFilePath, post.category_id)
     />
   </a>
 
-  <p class="text-sm text-text mb-4 text-center" set:html={post.content}></p>
+  <p class="text-sm text-text mb-4 text-center line-clamp-5" set:html={formatContent(post.content)}></p>
 
   <div class="flex justify-center">
     <a
         href={createPostUrl(post, category)}
-        class="inline-block bg-primary hover:bg-primary-hover text-text text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-border transition duration-150 ease-in-out"
+        class=" inline-block bg-[var(--color-header-bg)] hover:bg-[var(--color-primary-hover)] text-[var(--color-header-text)] text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-border transition duration-150 ease-in-out"
     >
       {t.MESSAGE_CLICK_POST}
     </a>

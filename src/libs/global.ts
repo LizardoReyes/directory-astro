@@ -2,9 +2,6 @@ import fs from "node:fs";
 import path from "path";
 import {siteFilePath} from "./constants.ts";
 
-const file = fs.readFileSync(path.resolve(siteFilePath), 'utf-8');
-const { language } = JSON.parse(file);
-
 export function createSlug(input: string | undefined) {
   const a =
     "àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;";
@@ -29,15 +26,20 @@ export function createSlug(input: string | undefined) {
 }
 
 export function getDateTimeString(date: string | Date) {
+  const file = fs.readFileSync(path.resolve(siteFilePath), 'utf-8');
+  const { language } = JSON.parse(file);
   const parsedDate = typeof date === "string" ? new Date(date) : date;
+  if (isNaN(parsedDate.getTime())) throw new Error("Invalid date format");
 
-  if (isNaN(parsedDate.getTime())) {
-    throw new Error("Invalid date format");
-  }
+  const isSupported = Intl.DateTimeFormat.supportedLocalesOf(language).length > 0;
+  const locale = isSupported ? language : "en";
 
-  return new Intl.DateTimeFormat(language, {
+  const result = new Intl.DateTimeFormat(locale, {
     day: "numeric",
     month: "long",
-    year: "numeric",
+    year: "numeric"
   }).format(parsedDate);
+
+  console.log({ language, locale, result });
+  return result;
 }

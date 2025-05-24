@@ -36,21 +36,27 @@ for (let i = start; i <= end; i++) pages.push(i);
 ---
 
 <!-- Pagination -->
-<div class="flex justify-center mt-10 space-x-2 text-sm text-text flex-wrap">
+<div class="flex justify-center mt-10 space-x-2 text-sm text-gray-800 flex-wrap">
   <!-- Botón Anterior -->
   {currentPage > 1 ? (
       <a href={getPageUrl(currentPage - 1)}>
-        <button class="px-3 py-1 text-primary hover:underline transition-colors">{t.PREVIOUS_TEXT}</button>
+        <button class="px-3 py-1 text-[var(--color-primary-hover)] cursor-pointer hover:underline transition-colors">
+          {t.PREVIOUS_TEXT}
+        </button>
       </a>
   ) : (
-      <button class="px-3 py-1 text-muted cursor-not-allowed" disabled>{t.PREVIOUS_TEXT}</button>
+      <button class="px-3 py-1 text-gray-400 cursor-not-allowed" disabled>
+        {t.PREVIOUS_TEXT}
+      </button>
   )}
 
   <!-- Botones numerados con ... -->
   {start > 1 && (
       <>
         <a href={getPageUrl(1)}>
-          <button class="px-3 py-1 border border-border rounded bg-bg hover:bg-primary-hover/10 transition-colors cursor-pointer">1</button>
+          <button class="px-3 py-1 border border-[var(--color-header-bg)] text-[var(--color-header-bg)] rounded bg-white hover:bg-[var(--color-primary-hover)]/10 transition-colors cursor-pointer">
+            1
+          </button>
         </a>
         {start > 2 && <span class="px-3 py-1">…</span>}
       </>
@@ -59,10 +65,10 @@ for (let i = start; i <= end; i++) pages.push(i);
   {pages.map((page) => (
       <a href={getPageUrl(page)}>
         <button
-            class={`px-3 py-1 border border-border rounded cursor-pointer transition-colors duration-150 ${
+            class={`px-3 py-1 border border-[var(--color-header-bg)] rounded cursor-pointer transition-colors duration-150 ${
                 page === currentPage
-                    ? "bg-primary text-text font-bold ring-2 ring-primary-hover"
-                    : "hover:bg-primary-hover/10"
+                    ? "bg-[var(--color-header-bg)] text-[var(--color-header-text)] font-semibold ring-2 ring-[var(--color-primary-hover)]"
+                    : "bg-white hover:bg-[var(--color-primary-hover)]/10 text-[var(--color-header-bg)]"
             }`}
         >
           {page}
@@ -74,7 +80,7 @@ for (let i = start; i <= end; i++) pages.push(i);
       <>
         {end < totalPages - 1 && <span class="px-3 py-1">…</span>}
         <a href={getPageUrl(totalPages)}>
-          <button class="px-3 py-1 border border-border rounded hover:bg-primary-hover/10 transition-colors cursor-pointer">
+          <button class="px-3 py-1 border border-[var(--color-header-bg)] text-[var(--color-header-bg)] rounded bg-white hover:bg-[var(--color-primary-hover)]/10 transition-colors cursor-pointer">
             {totalPages}
           </button>
         </a>
@@ -84,10 +90,14 @@ for (let i = start; i <= end; i++) pages.push(i);
   <!-- Botón Siguiente -->
   {currentPage < totalPages ? (
       <a href={getPageUrl(currentPage + 1)}>
-        <button class="px-3 py-1 text-primary hover:underline transition-colors">{t.NEXT_TEXT}</button>
+        <button class="px-3 py-1 text-[var(--color-primary-hover)] hover:underline cursor-pointer transition-colors">
+          {t.NEXT_TEXT}
+        </button>
       </a>
   ) : (
-      <button class="px-3 py-1 text-muted cursor-not-allowed" disabled>{t.NEXT_TEXT}</button>
+      <button class="px-3 py-1 text-gray-400 cursor-not-allowed" disabled>
+        {t.NEXT_TEXT}
+      </button>
   )}
 </div>
 
