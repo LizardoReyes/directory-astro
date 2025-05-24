@@ -11,16 +11,16 @@ const { baseUrl } = JSON.parse(site);
 export default defineConfig({
   site: baseUrl,
   integrations: [
-    minifyHtml({
-      minifyOptions: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        minifyJS: true,
-        minifyCSS: true,
-      }
-    }),
+    // minifyHtml({
+    //   minifyOptions: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeRedundantAttributes: true,
+    //     useShortDoctype: true,
+    //     minifyJS: true,
+    //     minifyCSS: true,
+    //   }
+    // }),
     sitemap(),
     robotsTxt({
       policy: [
