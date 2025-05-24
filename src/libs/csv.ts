@@ -54,11 +54,9 @@ export function getPostBySlugAndCategorySlug(
   if (!category) return;
 
   const allPosts = getAllItems<PostType>(postsFilePath);
-  const post = allPosts.find(
+  return allPosts.find(
       (p) => (p.slug || createSlug(p.title)) === postSlug && p.category_id === category.id
   );
-  console.log(post)
-  return post;
 }
 
 // CATEGORY BY SLUG
