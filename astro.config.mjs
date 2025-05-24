@@ -9,19 +9,19 @@ const site = readFileSync("./src/data/site.json", "utf-8");
 const { baseUrl } = JSON.parse(site);
 
 export default defineConfig({
-  site: baseUrl,
+  site: process.env.PUBLIC_SITE_URL || baseUrl,
   output: "static",
   integrations: [
-    // minifyHtml({
-    //   minifyOptions: {
-    //     removeComments: true,
-    //     collapseWhitespace: true,
-    //     removeRedundantAttributes: true,
-    //     useShortDoctype: true,
-    //     minifyJS: true,
-    //     minifyCSS: true,
-    //   }
-    // }),
+    minifyHtml({
+      minifyOptions: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        minifyJS: true,
+        minifyCSS: true,
+      }
+    }),
     sitemap(),
     robotsTxt({
       policy: [

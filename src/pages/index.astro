@@ -7,7 +7,6 @@ import { getAllItems, getSiteInfo } from "../libs/csv";
 import type { PostType } from "../types/PostType";
 
 const posts = getAllItems<PostType>(postsFilePath);
-
 const { name, description, fullDescription, postPerPage } = getSiteInfo();
 
 const currentPage = 1;

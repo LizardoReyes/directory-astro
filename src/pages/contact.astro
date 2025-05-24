@@ -7,7 +7,7 @@ const { language, baseUrl } = getSiteInfo();
 const t = getTranslations(language);
 ---
 
-<Layout title={t.CONTACT_TITLE_TEXT} description="Página de contacto del Restaurante Afrodita">
+<Layout title={t.CONTACT_TITLE_TEXT} description={t.CONTACT_DESCRIPTION_TEXT}>
   <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
       const form = document.getElementById("contact-form");

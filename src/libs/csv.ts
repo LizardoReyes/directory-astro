@@ -82,5 +82,10 @@ export function getItemsByCategoryId(
 // GET SITE INFO
 export function getSiteInfo(): SiteType {
   const file = fs.readFileSync(path.resolve(siteFilePath), 'utf-8');
-  return JSON.parse(file);
+  const { baseUrl, ...rest } = JSON.parse(file) as SiteType;
+  const parsedBaseUrl = import.meta.env.PUBLIC_SITE_URL || baseUrl;
+    return {
+        ...rest,
+        baseUrl: parsedBaseUrl,
+    };
 }
