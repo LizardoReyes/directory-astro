@@ -8,16 +8,17 @@ const t = getTranslations(language);
 ---
 
 <Layout
-  title= {"404 - " + t.NOT_FOUND_TEXT}
-  description={t.NOT_FOUND_DESCRIPTION}
+    title={"404 - " + t.NOT_FOUND_TEXT}
+    description={t.NOT_FOUND_DESCRIPTION}
 >
-  <div class="flex flex-col items-center justify-center h-screen">
-    <h1 class="text-4xl font-bold mb-4">404 - {t.NOT_FOUND_TEXT}</h1>
-    <p class="text-lg mb-8">{t.NOT_FOUND_TEXT_BODY}</p>
+  <div class="flex flex-col items-center justify-center h-screen bg-bg text-text transition-colors duration-300">
+    <h1 class="text-4xl font-bold mb-4 text-primary">404 - {t.NOT_FOUND_TEXT}</h1>
+    <p class="text-lg mb-8 text-muted">{t.NOT_FOUND_TEXT_BODY}</p>
     <a
-      href="/"
-      class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >{t.BACK_TO_HOME_TEXT}</a
+        href="/"
+        class="inline-block bg-primary hover:bg-primary-hover text-text text-sm font-semibold px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg ring-1 ring-border transition duration-150 ease-in-out"
     >
+      {t.BACK_TO_HOME_TEXT}
+    </a>
   </div>
 </Layout>

@@ -15,41 +15,65 @@ type Props = {
 
 const { title, description = "", image = "", slug = "", index = true } = Astro.props as Props;
 const { baseUrl, language } = getSiteInfo();
-console.log(index)
 ---
 
 <html lang={language}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={baseUrl + "/" + slug} />
-    <meta name="robots" content={index ? "index, follow": "noindex, follow"} />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={baseUrl + "/" + slug} />
+  <meta name="robots" content={index ? "index, follow" : "noindex, follow"} />
 
-    <!-- Open Graph (para redes sociales) -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    {image && <meta property="og:image" content={baseUrl + "/" + image} />}
-    <meta property="og:url" content={baseUrl + "/" + slug} />
-    <meta property="og:type" content="website" />
-    <ViewTransitions />
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  {image && <meta property="og:image" content={baseUrl + "/" + image} />}
+  <meta property="og:url" content={baseUrl + "/" + slug} />
+  <meta property="og:type" content="website" />
+  <ViewTransitions />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    html, body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+    }
+  </style>
+  <script is:inline src="/scripts/toggleMenu.js" defer></script>
+</head>
 
-    <!-- JavaScript para togglear el menú -->
-    <script src={baseUrl + "/scripts/toggleMenu.js"} defer></script>
-  </head>
+<body class="bg-bg text-text min-h-screen">
+<!-- Botones de cambio de tema por color -->
+<div class="fixed top-4 left-4 z-50 flex flex-wrap gap-2 max-w-full">
+<button onclick="document.documentElement.setAttribute('data-theme', 'red-dark')" class="bg-red-900 text-white px-3 py-1 rounded text-sm shadow">🟥 Rojo oscuro</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'red')" class="bg-red-500 text-white px-3 py-1 rounded text-sm shadow">❤️ Rojo</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'orange')" class="bg-orange-400 text-white px-3 py-1 rounded text-sm shadow">🟧 Naranja</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'yellow')" class="bg-yellow-300 text-black px-3 py-1 rounded text-sm shadow">🟨 Amarillo</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'lime')" class="bg-lime-400 text-black px-3 py-1 rounded text-sm shadow">🟩 Lima</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'green')" class="bg-green-500 text-white px-3 py-1 rounded text-sm shadow">💚 Verde</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'cyan')" class="bg-cyan-400 text-black px-3 py-1 rounded text-sm shadow">🧊 Cian</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'sky')" class="bg-sky-400 text-white px-3 py-1 rounded text-sm shadow">🔵 Celeste</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'blue')" class="bg-blue-600 text-white px-3 py-1 rounded text-sm shadow">💙 Azul</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'violet')" class="bg-violet-500 text-white px-3 py-1 rounded text-sm shadow">🟣 Violeta</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'fuchsia')" class="bg-fuchsia-500 text-white px-3 py-1 rounded text-sm shadow">🌸 Fucsia</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'pink')" class="bg-pink-400 text-white px-3 py-1 rounded text-sm shadow">💕 Rosa</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'purple')" class="bg-purple-500 text-white px-3 py-1 rounded text-sm shadow">💜 Púrpura</button>
+<button onclick="document.documentElement.setAttribute('data-theme', 'dark')" class="bg-gray-800 text-white px-3 py-1 rounded text-sm shadow">🌙 Oscuro</button>
+</div>
 
-  <body class="bg-gray-100">
-    <!-- Header -->
-    <Header />
 
-    <!-- Main -->
-    <slot />
 
-    <!-- Footer -->
-    <Footer />
-  </body>
+
+<!-- Header -->
+  <Header />
+
+  <!-- Main -->
+  <slot />
+
+  <!-- Footer -->
+  <Footer />
+</body>
 </html>

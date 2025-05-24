@@ -30,50 +30,44 @@ const postRelated = getItemsByCategoryId(
 
 <Layout title={"▷ " + post.title + " - " + name} description={post.content.slice(0,150) + "..."} image={post.image}>
   <main class="container mx-auto max-w-6xl px-4 py-10">
-    <!-- Contenido central del artículo con fondo blanco -->
-    <div class="bg-white shadow-md rounded-lg p-8">
-      <!-- Título -->
-      <h1 class="text-3xl font-bold text-gray-800 mb-4">
+    <!-- Contenido del artículo -->
+    <div class="bg-bg text-text shadow-md rounded-lg p-8 border border-border transition-colors duration-300">
+      <h1 class="text-3xl font-bold text-primary mb-4">
         {post.title}
       </h1>
 
-      <!-- Meta información -->
-      <div class="text-sm text-gray-500 mb-6 flex flex-wrap gap-4">
+      <div class="text-sm text-muted mb-6 flex flex-wrap gap-4">
         <span>📅 {t.PUBLISHED_TEXT} {getDateTimeString(post.publishedAt)}</span>
         <span>✍️ {t.AUTHOR_TEXT} Juan Pérez</span>
-        <span
-          >🏷️ {t.CATEGORY_TEXT} <a href={createCategoryUrl(category)} class="hover:text-blue-600"
-            >{category?.title}</a
-          ></span
-        >
+        <span>
+          🏷️ {t.CATEGORY_TEXT}
+          <a href={createCategoryUrl(category)} class="hover:text-primary underline-offset-2">
+            {category?.title}
+          </a>
+        </span>
       </div>
 
-      <!-- Imagen destacada -->
       <OptimizedImage
-        src={post.image}
-        alt={post.title}
-        class="rounded-lg mb-8 h-64 object-cover mx-auto"
+          src={post.image}
+          alt={post.title}
+          class="rounded-lg mb-8 h-64 object-cover mx-auto"
       />
 
-      <!-- Contenido del artículo -->
       <article
-        class="prose lg:prose-lg max-w-none text-gray-800"
-        set:html={post.content}
+          class="prose lg:prose-lg max-w-none text-text prose-a:text-primary prose-a:underline"
+          set:html={post.content}
       />
     </div>
 
-    <!-- Artículos relacionados con fondo blanco -->
-    <section class="bg-white shadow-md rounded-lg p-8 mt-10">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+    <!-- Artículos relacionados -->
+    <section class="bg-bg text-text shadow-md rounded-lg p-8 mt-10 border border-border transition-colors duration-300">
+      <h2 class="text-2xl font-semibold text-primary mb-6">
         {t.RELATED_POSTS_TEXT}
       </h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Cards -->
-        {
-          postRelated.map((relatedPost) => (
+        {postRelated.map((relatedPost) => (
             <CardRelated post={relatedPost} key={relatedPost.slug} />
-          ))
-        }
+        ))}
       </div>
     </section>
   </main>

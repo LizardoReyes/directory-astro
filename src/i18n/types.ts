@@ -1,4 +1,10 @@
 export interface Translations {
+    HOME_TEXT: string;
+    LOCALITIES_TEXT: string;
+    ABOUT_TEXT: string;
+    SITEMAP_TEXT: string;
+    CONTACT_TEXT: string;
+
     LOCATION_TEXT: string;
     MESSAGE_CLICK_POST: string;
     MESSAGE_CLICK_POST_PLURAL: string;
@@ -16,4 +22,17 @@ export interface Translations {
     BACK_TO_HOME_TEXT: string;
     NEXT_TEXT: string;
     PREVIOUS_TEXT: string;
+
+    LOCALITIES_TITLE_TEXT: string;
+    LOCALITIES_DESCRIPTION_TEXT: string;
+    LOCALITIES_CONTENT_TEXT: string;
+
+    CONTACT_TITLE_TEXT: string;
+    CONTACT_DESCRIPTION_TEXT: string;
+    CONTACT_NAME_TEXT: string;
+    CONTACT_EMAIL_TEXT: string;
+    CONTACT_MESSAGE_TEXT: string;
+    CONTACT_SUBMIT_TEXT: string;
+    CONTACT_SUCCESS_TEXT: string;
+    CONTACT_ERROR_TEXT: string;
 }

@@ -5,10 +5,8 @@ import { getSiteInfo } from "../libs/csv";
 const { name, language } = getSiteInfo();
 const t = getTranslations(language);
 const year = new Date().getFullYear();
-
 ---
 
-<footer class="bg-gray-900 text-white text-center py-4">
-  © {year}
-  {name}. {t.MESSAGE_FOOTER}
+<footer class="bg-bg text-text text-center py-4 border-t border-border transition-colors duration-300">
+  © {year} {name}. {t.MESSAGE_FOOTER}
 </footer>

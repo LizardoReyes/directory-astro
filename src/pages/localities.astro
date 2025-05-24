@@ -1,0 +1,34 @@
+---
+import CardLocalidades from "../components/card/CardLocalities.astro";
+import Pagination from "../components/Pagination.astro";
+import Layout from "../layouts/Layout.astro";
+import { categoriesFilePath } from "../libs/constants";
+import {getAllItems, getSiteInfo} from "../libs/csv";
+import { type CategoryType } from "../types/CategoryType";
+import {getTranslations} from "../i18n";
+
+const categories = getAllItems<CategoryType>(categoriesFilePath);
+const { language, name } = getSiteInfo();
+const t = getTranslations(language);
+---
+
+<Layout
+    title={t.LOCALITIES_TITLE_TEXT + " - " + name}
+    description={t.LOCALITIES_DESCRIPTION_TEXT + " " + name}
+>
+  <main class="container mx-auto px-4 py-10">
+    <section class="bg-bg text-text shadow-md rounded-lg p-8 border border-border transition-colors duration-300">
+      <h1 class="text-3xl font-bold text-primary mb-6">{t.LOCALITIES_TITLE_TEXT}</h1>
+      <p class="text-muted mb-8">
+        {t.LOCALITIES_CONTENT_TEXT}
+      </p>
+
+      <!-- Grid de categorías -->
+      <div class="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {categories.map((category) => (
+            <CardLocalidades category={category} />
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>

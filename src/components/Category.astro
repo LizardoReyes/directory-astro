@@ -20,36 +20,29 @@ const { category, posts, currentPage, totalPages, basePath, index } = Astro.prop
 const { name, language } = getSiteInfo();
 const t = getTranslations(language);
 ---
-
-<Layout 
-  title={`▷ ${category.title}${currentPage > 1 ? ` - ${t.PAGE_TITLE} ${currentPage}` : ''} - ${name}`}
-  description={category.description} index={index}>
+<Layout
+        title={`▷ ${category.title}${currentPage > 1 ? ` - ${t.PAGE_TITLE} ${currentPage}` : ''} - ${name}`}
+        description={category.description} index={index}>
     <main class="container mx-auto px-4 py-10">
-    <!-- Categoría: Frigiliana -->
-    <section class="bg-white shadow-md rounded-lg p-8">
-      <!-- Título de la categoría -->
-      <h1 class="text-3xl font-bold text-gray-800 mb-6">
-          {t.CATEGORY_TEXT} {category.title}
-      </h1>
+        <section class="bg-bg text-text shadow-md rounded-lg p-8 border border-border transition-colors duration-300">
 
-      <!-- Descripción opcional -->
-      <p class="text-gray-600 mb-8">
-        {category.description}
-      </p>
+            <h1 class="text-3xl font-bold text-primary mb-6">
+                {t.CATEGORY_TEXT} {category.title}
+            </h1>
 
-      <!-- Grid de artículos -->
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-      >
-        <!-- Posts -->
-        {posts.map((post) => <CardCategory post={post} />)}
-      </div>
+            <p class="text-muted mb-8">
+                {category.description}
+            </p>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        basePath={basePath}
-      />
-    </section>
-  </main>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {posts.map((post) => <CardCategory post={post} />)}
+            </div>
+
+            <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    basePath={basePath}
+            />
+        </section>
+    </main>
 </Layout>
